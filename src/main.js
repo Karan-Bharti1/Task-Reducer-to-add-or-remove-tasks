@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import './style.css'
 import taskReducer from './taskReducer'
-import { addTask,removeTask, toggleTask } from './actions'
+import { addTask,calculateTotalTasks,removeTask, toggleTask } from './actions'
 const title=document.getElementById("title")
 const description=document.getElementById("description")
 const addNewTask=document.getElementById("addNewTask")
@@ -19,15 +19,18 @@ const addNewTaskEventHandler=()=>{
     status:false
   }
   store.dispatch(addTask(newTask))
+  store.dispatch(calculateTotalTasks())
 }
 addNewTask.addEventListener("click",addNewTaskEventHandler)
 const removeTaskHandler=()=>{
   const id=removeTaskId.value
   store.dispatch(removeTask(id))
+  store.dispatch(calculateTotalTasks())
 }
 removeTaskDisplay.addEventListener("click",removeTaskHandler)
 window.handleStatus=(id)=>{
   store.dispatch(toggleTask(id))
+  store.dispatch(calculateTotalTasks())
 }
 const renderTaskList=()=>{
   const state=store.getState()
@@ -37,6 +40,13 @@ const renderTaskList=()=>{
   ).join("")
 }
 renderTaskList()
+const updateTotalTasks=()=>{
+  const state=store.getState()
+  displayTotal.textContent=`Total Tasks:${state.total}`
+  
+}
+updateTotalTasks()
 store.subscribe(()=>{
   renderTaskList()
+  updateTotalTasks()
 })

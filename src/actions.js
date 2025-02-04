@@ -5,3 +5,4 @@ export const CALCULATE_TOTAL_TASKS="task/calculateTotalTasks"
 export const addTask =(task)=>({type:ADD_TASK,payload:task})
 export const removeTask=(id)=>({type:REMOVE_TASK,payload:id})
 export const toggleTask=(id)=>({type:TOGGLE_TASK,payload:id})
+export const calculateTotalTasks=()=>({type:CALCULATE_TOTAL_TASKS})

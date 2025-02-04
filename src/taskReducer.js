@@ -1,6 +1,6 @@
-import { ADD_TASK, REMOVE_TASK, TOGGLE_TASK } from "./actions"
+import { ADD_TASK, CALCULATE_TOTAL_TASKS, REMOVE_TASK, TOGGLE_TASK } from "./actions"
 
-const initialState={tasks:[]}
+const initialState={tasks:[],total:0}
 const taskReducer=(state=initialState,action)=>{
     switch (action.type){
         case ADD_TASK:
@@ -15,6 +15,10 @@ const taskReducer=(state=initialState,action)=>{
                 return {
                     ...state,tasks:state.tasks.map(task=>task.id == action.payload ? { ...task, status: !task.status } : task)
                 }
+                case CALCULATE_TOTAL_TASKS:
+                    return {
+                        ...state,total:state.tasks.length
+                    }
            default:
             return state
     }
