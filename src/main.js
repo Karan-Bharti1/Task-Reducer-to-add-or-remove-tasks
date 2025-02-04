@@ -13,7 +13,9 @@ const store=createStore(taskReducer)
 const addNewTaskEventHandler=()=>{
   const state=store.getState()
   const newTask={
-    id:state.tasks.length+1,
+    id: state.tasks.length > 0 
+    ? Math.max(...state.tasks.map(task => task.id)) + 1 
+    : 1,
     title:title.value,
     description:description.value,
     status:false
@@ -42,7 +44,8 @@ const renderTaskList=()=>{
 renderTaskList()
 const updateTotalTasks=()=>{
   const state=store.getState()
-  displayTotal.textContent=`Total Tasks:${state.total}`
+  if(state.tasks.length>0)
+ { displayTotal.textContent=`Total Tasks: ${state.total}`}
   
 }
 updateTotalTasks()
