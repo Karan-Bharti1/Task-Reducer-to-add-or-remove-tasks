@@ -37,8 +37,8 @@ window.handleStatus=(id)=>{
 const renderTaskList=()=>{
   const state=store.getState()
   console.log(state)
- displayList.innerHTML =state.tasks.map(task=>
-  `<li><input onchange="handleStatus(${task.id})" type="checkbox" ${task.status ? "checked" : ""}/> ${task.id}. ${task.title}: ${task.description}</li>`
+ displayList.innerHTML =state.tasks.map((task)=>
+  `<li><label for="${task.id}-${task.title}"><input onchange="handleStatus(${task.id})" id="${task.id}-${task.title}" type="checkbox" ${task.status ? "checked" : ""}/> ${task.id}. ${task.title}: ${task.description}<label/></li>`
   ).join("")
 }
 renderTaskList()
@@ -46,7 +46,9 @@ const updateTotalTasks=()=>{
   const state=store.getState()
   if(state.tasks.length>0)
  { displayTotal.textContent=`Total Tasks: ${state.total}`}
-  
+  else{
+    displayTotal.textContent=""
+  }
 }
 updateTotalTasks()
 store.subscribe(()=>{
