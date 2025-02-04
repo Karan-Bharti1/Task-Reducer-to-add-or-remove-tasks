@@ -9,7 +9,7 @@ const removeTaskId=document.getElementById("removeTaskId")
 const displayList=document.getElementById("displayList")
 const displayTotal=document.getElementById("displayTotal")
 const removeTaskDisplay=document.getElementById("removeTask")
-const store=createStore(taskReducer)
+const store=createStore(taskReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 const addNewTaskEventHandler=()=>{
   const state=store.getState()
   const newTask={
