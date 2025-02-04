@@ -1,14 +1,14 @@
 import { createStore } from 'redux'
 import './style.css'
 import taskReducer from './taskReducer'
-import { addTask } from './actions'
+import { addTask,removeTask } from './actions'
 const title=document.getElementById("title")
 const description=document.getElementById("description")
 const addNewTask=document.getElementById("addNewTask")
 const removeTaskId=document.getElementById("removeTaskId")
 const displayList=document.getElementById("displayList")
 const displayTotal=document.getElementById("displayTotal")
-const removeTask=document.getElementById("removeTask")
+const removeTaskDisplay=document.getElementById("removeTask")
 const store=createStore(taskReducer)
 const addNewTaskEventHandler=()=>{
   const state=store.getState()
@@ -21,6 +21,11 @@ const addNewTaskEventHandler=()=>{
   store.dispatch(addTask(newTask))
 }
 addNewTask.addEventListener("click",addNewTaskEventHandler)
+const removeTaskHandler=()=>{
+  const id=removeTaskId.value
+  store.dispatch(removeTask(id))
+}
+removeTaskDisplay.addEventListener("click",removeTaskHandler)
 const renderTaskList=()=>{
   const state=store.getState()
  displayList.innerHTML =state.tasks.map(task=>
