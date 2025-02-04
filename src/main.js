@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import './style.css'
 import taskReducer from './taskReducer'
-import { addTask,removeTask } from './actions'
+import { addTask,removeTask, toggleTask } from './actions'
 const title=document.getElementById("title")
 const description=document.getElementById("description")
 const addNewTask=document.getElementById("addNewTask")
@@ -26,10 +26,14 @@ const removeTaskHandler=()=>{
   store.dispatch(removeTask(id))
 }
 removeTaskDisplay.addEventListener("click",removeTaskHandler)
+window.handleStatus=(id)=>{
+  store.dispatch(toggleTask(id))
+}
 const renderTaskList=()=>{
   const state=store.getState()
+  console.log(state)
  displayList.innerHTML =state.tasks.map(task=>
-  `<li><input type="checkbox"/> ${task.id}. ${task.title}: ${task.description}</li>`
+  `<li><input onchange="handleStatus(${task.id})" type="checkbox" ${task.status ? "checked" : ""}/> ${task.id}. ${task.title}: ${task.description}</li>`
   ).join("")
 }
 renderTaskList()
